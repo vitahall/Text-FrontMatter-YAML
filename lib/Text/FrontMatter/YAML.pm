@@ -46,18 +46,17 @@ our $VERSION = '0.01';
 
 =head1 DESCRIPTION
 
-Text::FrontMatter::YAML opens files with so-called "YAML front matter", such as
-are found on GitHub (and used in Jekyll, and various other programs). It splits
-the file into the front matter and data sections. The YAML front matter can be
-retrieved as a hash or as a string, and the file data below can be retrieved as
-a string, or via a filehandle. Access is read-only.
+Text::FrontMatter::YAML opens files with so-called "YAML front matter",
+such as are found on GitHub (and used in Jekyll, and various other
+programs). It's a way of associating metadata with a file by marking off
+the metadata into a YAML section at the top of the file. (See
+L</The Structure of files with front matter> for more.)
 
-It is not an error to open text files that don't have a front matter block.
+The YAML front matter can be retrieved as a hash or as a string, and the
+file data below can be retrieved as a string, or via a filehandle.
+Access is read-only.
 
 =head2 The Structure of files with front matter
-
-This implementation is believed to be compatible with Jekyll's, which is
-the originator of the concept, as far as I can tell.
 
 Files with a block at the beginning like the following are considered to
 have "front matter":
@@ -72,6 +71,8 @@ have "front matter":
     the front matter block. This section of the file is not
     interpreted in any way by Text::FrontMatter::YAML.
 
+It is not an error to open text files that don't have a front matter block.
+
 A triple-dashed line must be the first line of the file. If not, the file
 doesn't have front matter; it's all data. (get_frontmatter_text() and
 get_frontmatter_hash() will return undef in this case.)
@@ -82,6 +83,7 @@ matter block, the first line following the triple-dashed line begins
 the data section. If there I<is> no trailing triple-dashed line after
 the YAML ends, the file is considered to have no data section, and
 get_data_text() and get_data_fh() will return undef.)
+
 
 =head1 METHODS
 
@@ -360,6 +362,9 @@ You can find documentation for this module with the perldoc command.
 =head1 SEE ALSO
 
 Jekyll L<https://github.com/mojombo/jekyll/wiki/yaml-front-matter>
+
+This implementation is believed to be compatible with Jekyll's, which is
+the originator of the concept, as far as I can tell.
 
 L<YAML>
 
