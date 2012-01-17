@@ -27,8 +27,8 @@ our $VERSION = '0.01';
         path => $filepath,
     );
 
-    my $hashref     = $tfm->get_frontmatter_hash();
-    my $data_format = $hashref->{'format'};
+    my $hashref   = $tfm->get_frontmatter_hash();
+    my $mumble    = $hashref->{'mumble'};
 
     my $fh = $tfm->get_data_fh();
     while (defined(my $line = <$fh>)) {
@@ -65,7 +65,7 @@ have "front matter":
     author: Aaron Hall
     email:  ahall@vitahall.org
     module: Text::FrontMatter::YAML
-    version: 0.1
+    version: 0.50
     ---
     This is the rest of the file data, and isn't part of
     the front matter block. This section of the file is not
@@ -74,15 +74,15 @@ have "front matter":
 It is not an error to open text files that don't have a front matter block.
 
 A triple-dashed line must be the first line of the file. If not, the file
-doesn't have front matter; it's all data. (get_frontmatter_text() and
-get_frontmatter_hash() will return undef in this case.)
+doesn't have front matter; it's all data. get_frontmatter_text() and
+get_frontmatter_hash() will return undef in this case.
 
 The triple-dashed line ending the block is taken as a separator. It is
 not returned in either the frontmatter or data. In files with a front
 matter block, the first line following the triple-dashed line begins
 the data section. If there I<is> no trailing triple-dashed line after
 the YAML ends, the file is considered to have no data section, and
-get_data_text() and get_data_fh() will return undef.)
+get_data_text() and get_data_fh() will return undef.
 
 
 =head1 METHODS
@@ -268,10 +268,9 @@ sub get_frontmatter_text {
 =head2 get_data_fh
 
 get_data_fh() returns a filehandle whose contents are the data section
-of the file. It takes no parameters.
-
-Internally, get_data_fh() makes a copy of the data section and opens a
-filehandle on the scalar copy.
+of the file. It takes no parameters. The filehandle will be ready for
+reading from the beginning. A new filehandle will be returned each time
+get_data_fh() is called.
 
 If there is no data section, it returns undef.
 
