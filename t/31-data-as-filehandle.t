@@ -27,4 +27,8 @@ while (defined(my $line = <$fh>)) {
 
 is($output, $DATA_TEXT, 'filehandle outputs correct data');
 
+my $fh2 = $tfm->get_data_fh;
+my $fh3 = $tfm->get_data_fh;
+isnt($fh2, $fh3, 'get_data_fh returns a new filehandle on each call');
+
 done_testing();
