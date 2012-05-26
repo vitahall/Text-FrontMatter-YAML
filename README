@@ -20,15 +20,15 @@ SYNOPSIS
         path => $filepath,
     );
 
-    my $hashref     = $tfm->get_frontmatter_hash();
-    my $data_format = $hashref->{'format'};
+    my $hashref = $tfm->get_frontmatter_hash();
+    my $mumble  = $hashref->{'mumble'};
 
     my $fh = $tfm->get_data_fh();
     while (defined(my $line = <$fh>)) {
         # do something with the file data
     }
 
-    ...
+    # or also...
 
     my $tfm = Text::FrontMatter::YAML->new(
         string => $text_with_frontmatter

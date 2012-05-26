@@ -35,7 +35,7 @@ our $VERSION = '0.01';
         # do something with the file data
     }
 
-    ...
+    # or also
 
     my $tfm = Text::FrontMatter::YAML->new(
         string => $text_with_frontmatter
