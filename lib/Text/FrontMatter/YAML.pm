@@ -71,18 +71,20 @@ have "front matter":
     the front matter block. This section of the file is not
     interpreted in any way by Text::FrontMatter::YAML.
 
-It is not an error to open text files that don't have a front matter block.
+It is not an error to open text files that have no front matter block,
+nor those that have no data block.
 
-A triple-dashed line must be the first line of the file. If not, the file
-doesn't have front matter; it's all data. get_frontmatter_text() and
-get_frontmatter_hash() will return undef in this case.
+If the input has front matter, a triple-dashed line must be the first line
+of the file. If not, the file is considered to have no front matter; it's
+all data. get_frontmatter_text() and get_frontmatter_hash() will return
+undef in this case.
 
-The triple-dashed line ending the block is taken as a separator. It is
-not returned in either the frontmatter or data. In files with a front
-matter block, the first line following the triple-dashed line begins
-the data section. If there I<is> no trailing triple-dashed line after
-the YAML ends, the file is considered to have no data section, and
-get_data_text() and get_data_fh() will return undef.
+The triple-dashed line ending the block is taken as a separator. It is not
+returned in either the frontmatter or data. In files with a front matter
+block, the first line following the triple-dashed line begins the data
+section. If there I<is> no trailing triple-dashed line the file is
+considered to have no data section, and get_data_text() and get_data_fh()
+will return undef.
 
 
 =head1 METHODS
@@ -226,7 +228,7 @@ sub _init_from_file {
 
 =head2 get_frontmatter_hash
 
-get_frontmatter_hash() loads the YAML in the front matter using YAML::XS
+get_frontmatter_hash() loads the YAML in the front matter using YAML::Tiny
 and returns the resulting hash. It takes no parameters.
 
 If there is no front matter block, it returns undef.
@@ -313,7 +315,7 @@ sub get_data_text {
 =item *
 
 Errors in the YAML will only be detected upon calling get_frontmatter_hash(),
-because that's the only time that YAML::XS is called to parse the YAML.
+because that's the only time that YAML::Tiny is called to parse the YAML.
 
 =back
 
@@ -351,6 +353,11 @@ report it to me at C<< ahall@vitahall.org >>. Thanks!
 
 =back
 
+=head1 DEPENDENCIES
+
+YAML::Tiny (available from CPAN) is used to process the YAML front matter
+when get_frontmatter_hash() is called.
+
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -367,7 +374,7 @@ the originator of the concept, as far as I can tell.
 
 L<YAML>
 
-L<YAML::XS>
+L<YAML::Tiny>
 
 =head1 AUTHOR
 
