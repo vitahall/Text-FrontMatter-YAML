@@ -12,8 +12,8 @@ WriteMakefile(
       : ()),
     PL_FILES            => {},
     PREREQ_PM => {
-        'YAML::XS' => 0,
-        'Carp'     => 0,
+        'YAML::Tiny'    => 0,
+        'Carp'          => 0,
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,

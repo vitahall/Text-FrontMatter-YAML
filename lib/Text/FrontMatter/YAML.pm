@@ -7,7 +7,7 @@ use 5.10.0;
 
 use Data::Dumper;
 use Carp;
-use YAML::XS;
+use YAML::Tiny qw/Load/;
 
 =head1 NAME
 
