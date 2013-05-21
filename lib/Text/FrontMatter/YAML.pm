@@ -86,22 +86,21 @@ section. If there I<is> no trailing triple-dashed line the file is
 considered to have no data section, and get_data_text() and get_data_fh()
 will return undef.
 
-
 =head1 METHODS
 
 =head2 new
 
 new() created a new Text::FrontMatter::YAML object. You can create an object
-from an existing filehandle, a string, or a file. It takes a hash, and one
-of the following arguments must be passed:
+from an existing filehandle, a string, or a file. It takes a hash, in which
+one (and only one) of the following arguments must be passed:
 
 =over 4
 
 =item I<fh>
 
-A filehandle, ready for reading. The filehandle will be read to the end
-but not closed. The filehandle is not used for any other purposes, so it's
-all right to close it after new() returns.
+An open filehandle, ready for reading. The filehandle will be read to the
+end but not closed. The filehandle is not used for any other purposes, so
+it's all right to close it after new() returns.
 
 =item I<path>
 
@@ -312,6 +311,13 @@ sub get_data_text {
 Errors in the YAML will only be detected upon calling get_frontmatter_hashref(),
 because that's the only time that YAML::Tiny is called to parse the YAML.
 
+=item *
+
+Text encoding is currently ignored. YAML::Tiny will attempt to decode
+the YAML into UTF-8 if the L<utf8> module is available. In the future
+this module will attempt to handle various encodings of the data section,
+but more research is needed. Suggestions welcome.
+
 =back
 
 Please report any bugs or feature requests to C<bug-text-frontmatter-yaml at
@@ -371,7 +377,7 @@ Aaron Hall, C<< ahall@vitahall.org >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Aaron Hall.
+Copyright 2013 Aaron Hall.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
