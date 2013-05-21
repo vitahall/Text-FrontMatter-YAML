@@ -211,13 +211,8 @@ sub _init_from_string {
 sub _init_from_file {
     my $self = shift;
     my $path = shift;
-    my $mode = shift || '<';  # mode is currently undocumented
 
-    if ($mode ne '<') {
-        croak "can only open files read-only";
-    }
-
-    open my $fh, $mode, $path
+    open my $fh, '<', $path
       or croak "cannot open $path, $!";
 
     $self->_init_from_fh($fh);
@@ -334,12 +329,6 @@ bug as I make changes.
 When calling new(), you must tell it to take the data from an open
 filehandle you supply, a string, or a file. You'll get this message
 if you specify none of those, or more than one.
-
-=item can only open files read-only
-
-Heh, you found the I<mode> parameter to new(). It only accepts C<< < >>,
-which is the default, and so probably isn't worth using yet. If write
-access is added, this will do something.
 
 =item cannot open <path>...
 
