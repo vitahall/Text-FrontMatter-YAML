@@ -320,11 +320,8 @@ but more research is needed. Suggestions welcome.
 
 =back
 
-Please report any bugs or feature requests to C<bug-text-frontmatter-yaml at
-rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-FrontMatter-YAML>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
+Please report bugs to me at C<ahall@vitaphone.net>. Please include
+C<Text::FrontMatter::YAML> in the subject line of the e-mail. Thanks!
 
 =head1 DIAGNOSTICS
 
@@ -359,13 +356,14 @@ You can find documentation for this module with the perldoc command.
 
     perldoc Text::FrontMatter::YAML
 
+Send questions, feature requests, and bug reports to me at
+C<ahall@vitaphone.net>. Please include C<Text::FrontMatter::YAML> in the
+subject line of the e-mail. Thanks!
 
 =head1 SEE ALSO
 
-Jekyll L<https://github.com/mojombo/jekyll/wiki/yaml-front-matter>
+Jekyll - L<https://github.com/mojombo/jekyll/wiki/yaml-front-matter>
 
-This implementation is believed to be compatible with Jekyll's, which is
-the originator of the concept, as far as I can tell.
 
 L<YAML>
 
@@ -373,18 +371,16 @@ L<YAML::Tiny>
 
 =head1 AUTHOR
 
-Aaron Hall, C<< ahall@vitahall.org >>
+Aaron Hall, C<< ahall@vitaphone.net >>
 
 =head1 LICENSE AND COPYRIGHT
 
 Copyright 2013 Aaron Hall.
 
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl 5.10.0.
 
-See http://dev.perl.org/licenses/ for more information.
-
+See L<http://dev.perl.org/licenses/> for more information.
 
 =cut
 
