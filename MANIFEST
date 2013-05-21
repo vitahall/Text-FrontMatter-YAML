@@ -1,8 +1,8 @@
 Changes
-ignore.txt
 lib/Text/FrontMatter/YAML.pm
 Makefile.PL
 MANIFEST
+MANIFEST.SKIP
 README
 t/00-load.t
 t/10-basic.t
