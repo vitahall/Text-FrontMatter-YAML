@@ -27,7 +27,7 @@ our $VERSION = '0.01';
         path => $filepath,
     );
 
-    my $hashref   = $tfm->get_frontmatter_hash();
+    my $hashref   = $tfm->get_frontmatter_hashref();
     my $mumble    = $hashref->{'mumble'};
 
     my $fh = $tfm->get_data_fh();
@@ -76,7 +76,7 @@ nor those that have no data block.
 
 If the input has front matter, a triple-dashed line must be the first line
 of the file. If not, the file is considered to have no front matter; it's
-all data. get_frontmatter_text() and get_frontmatter_hash() will return
+all data. get_frontmatter_text() and get_frontmatter_hashref() will return
 undef in this case.
 
 The triple-dashed line ending the block is taken as a separator. It is not
@@ -221,16 +221,16 @@ sub _init_from_file {
 }
 
 
-=head2 get_frontmatter_hash
+=head2 get_frontmatter_hashref
 
-get_frontmatter_hash() loads the YAML in the front matter using YAML::Tiny
+get_frontmatter_hashref() loads the YAML in the front matter using YAML::Tiny
 and returns the resulting hash. It takes no parameters.
 
 If there is no front matter block, it returns undef.
 
 =cut
 
-sub get_frontmatter_hash {
+sub get_frontmatter_hashref {
     my $self = shift;
 
     if (! defined($self->{'yaml'})) {
@@ -309,7 +309,7 @@ sub get_data_text {
 
 =item *
 
-Errors in the YAML will only be detected upon calling get_frontmatter_hash(),
+Errors in the YAML will only be detected upon calling get_frontmatter_hashref(),
 because that's the only time that YAML::Tiny is called to parse the YAML.
 
 =back
@@ -345,7 +345,7 @@ report it to me at C<< ahall@vitahall.org >>. Thanks!
 =head1 DEPENDENCIES
 
 YAML::Tiny (available from CPAN) is used to process the YAML front matter
-when get_frontmatter_hash() is called.
+when get_frontmatter_hashref() is called.
 
 =head1 SUPPORT
 
