@@ -1,5 +1,9 @@
 Revision history for Text-FrontMatter-YAML
 
+0.03    2013-05-27 (internal-only)
+  - Remove get_ from APIs
+  - Assume input is in UTF-8 and set encoding on open()
+
 0.02    2013-05-20
   - Initial release to PrePAN
 
