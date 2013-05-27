@@ -198,7 +198,7 @@ sub _init_from_string {
     my $self   = shift;
     my $string = shift;
 
-    open my $fh, '<', \$string
+    open my $fh, '<:encoding(UTF-8)', \$string
       or die "internal error: cannot open filehandle on string, $!";
 
     $self->_init_from_fh($fh);
@@ -211,7 +211,7 @@ sub _init_from_file {
     my $self = shift;
     my $path = shift;
 
-    open my $fh, '<', $path
+    open my $fh, '<:encoding(UTF-8)', $path
       or croak "cannot open $path, $!";
 
     $self->_init_from_fh($fh);
