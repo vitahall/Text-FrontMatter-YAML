@@ -16,13 +16,13 @@ author: Aaron Hall
 organization: None
 END_YAML
 
-my $yaml = $tfm->get_frontmatter_text;
+my $yaml = $tfm->frontmatter_text;
 is($yaml, $YAML_TEXT, 'yaml returned for file with empty data section');
 
 
 my $DATA_TEXT = '';
 
-my $data = $tfm->get_data_text;
+my $data = $tfm->data_text;
 is($data, $DATA_TEXT, 'empty data returned for file with empty data section');
 
 done_testing();

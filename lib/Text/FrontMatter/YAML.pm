@@ -27,10 +27,10 @@ our $VERSION = '0.02';
         path => $filepath,
     );
 
-    my $hashref   = $tfm->get_frontmatter_hashref();
+    my $hashref   = $tfm->frontmatter_hashref();
     my $mumble    = $hashref->{'mumble'};
 
-    my $fh = $tfm->get_data_fh();
+    my $fh = $tfm->data_fh();
     while (defined(my $line = <$fh>)) {
         # do something with the file data
     }
@@ -41,8 +41,8 @@ our $VERSION = '0.02';
         string => $text_with_frontmatter
     );
 
-    my $yaml = $tfm->get_frontmatter_text();
-    my $data = $tfm->get_data_text();
+    my $yaml = $tfm->frontmatter_text();
+    my $data = $tfm->data_text();
 
 =head1 DESCRIPTION
 
@@ -76,14 +76,14 @@ nor those that have no data block.
 
 If the input has front matter, a triple-dashed line must be the first line
 of the file. If not, the file is considered to have no front matter; it's
-all data. get_frontmatter_text() and get_frontmatter_hashref() will return
+all data. frontmatter_text() and frontmatter_hashref() will return
 undef in this case.
 
 The triple-dashed line ending the block is taken as a separator. It is not
 returned in either the frontmatter or data. In files with a front matter
 block, the first line following the triple-dashed line begins the data
 section. If there I<is> no trailing triple-dashed line the file is
-considered to have no data section, and get_data_text() and get_data_fh()
+considered to have no data section, and data_text() and data_fh()
 will return undef.
 
 =head1 METHODS
@@ -220,16 +220,16 @@ sub _init_from_file {
 }
 
 
-=head2 get_frontmatter_hashref
+=head2 frontmatter_hashref
 
-get_frontmatter_hashref() loads the YAML in the front matter using YAML::Tiny
-and returns the resulting hash. It takes no parameters.
+frontmatter_hashref() loads the YAML in the front matter using YAML::Tiny
+and returns a reference to the resulting hash. It takes no parameters.
 
 If there is no front matter block, it returns undef.
 
 =cut
 
-sub get_frontmatter_hashref {
+sub frontmatter_hashref {
     my $self = shift;
 
     if (! defined($self->{'yaml'})) {
@@ -244,9 +244,9 @@ sub get_frontmatter_hashref {
     return $self->{'yaml_hashref'};
 }
 
-=head2 get_frontmatter_text
+=head2 frontmatter_text
 
-get_frontmatter_text() returns the text found the front matter block,
+frontmatter_text() returns the text found the front matter block,
 if any. The trailing triple-dash line (C<--->), if any, is removed. It takes
 no parameters.
 
@@ -254,25 +254,25 @@ If there is no front matter block, it returns undef.
 
 =cut
 
-sub get_frontmatter_text {
+sub frontmatter_text {
     my $self = shift;
 
     return $self->{'yaml'};
 }
 
 
-=head2 get_data_fh
+=head2 data_fh
 
-get_data_fh() returns a filehandle whose contents are the data section
+data_fh() returns a filehandle whose contents are the data section
 of the file. It takes no parameters. The filehandle will be ready for
 reading from the beginning. A new filehandle will be returned each time
-get_data_fh() is called.
+data_fh() is called.
 
 If there is no data section, it returns undef.
 
 =cut
 
-sub get_data_fh {
+sub data_fh {
     my $self = shift;
 
     if (! defined($self->{'data'})) {
@@ -287,16 +287,16 @@ sub get_data_fh {
 }
 
 
-=head2 get_data_text
+=head2 data_text
 
-get_data_text() returns a string contaning the data section of the file.
+data_text() returns a string contaning the data section of the file.
 It takes no parameters.
 
 If there is no data section, it returns undef.
 
 =cut
 
-sub get_data_text {
+sub data_text {
     my $self = shift;
 
     return $self->{'data'};
@@ -308,7 +308,7 @@ sub get_data_text {
 
 =item *
 
-Errors in the YAML will only be detected upon calling get_frontmatter_hashref(),
+Errors in the YAML will only be detected upon calling frontmatter_hashref(),
 because that's the only time that YAML::Tiny is called to parse the YAML.
 
 =item *
@@ -348,7 +348,7 @@ report it to me at C<< ahall@vitahall.org >>. Thanks!
 =head1 DEPENDENCIES
 
 YAML::Tiny (available from CPAN) is used to process the YAML front matter
-when get_frontmatter_hashref() is called.
+when frontmatter_hashref() is called.
 
 =head1 SUPPORT
 

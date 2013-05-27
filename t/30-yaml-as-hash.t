@@ -13,8 +13,8 @@ my $expected_yaml = {
     title  => 'My New Site',
 };
 
-my $gotyaml = $tfm->get_frontmatter_hashref;
+my $gotyaml = $tfm->frontmatter_hashref;
 is_deeply($gotyaml, $expected_yaml,
-    "get_frontmatter_hashref returned correct hash");
+    "frontmatter_hashref returned correct hash");
 
 done_testing();

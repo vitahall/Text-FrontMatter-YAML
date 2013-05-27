@@ -24,11 +24,11 @@ my $tfm = Text::FrontMatter::YAML->new(
 my $RETURNED_YAML = $YAML_TEXT;
 $RETURNED_YAML =~ s/---\n\Z//;
 
-my $yaml = $tfm->get_frontmatter_text;
-is($yaml, $RETURNED_YAML, "get_frontmatter_text returned correct text for string");
+my $yaml = $tfm->frontmatter_text;
+is($yaml, $RETURNED_YAML, "frontmatter_text returned correct text for string");
 
-my $data = $tfm->get_data_text;
-is($data, $DATA_TEXT, "get_data_text returned correct text for string");
+my $data = $tfm->data_text;
+is($data, $DATA_TEXT, "data_text returned correct text for string");
 
 done_testing();
 1;

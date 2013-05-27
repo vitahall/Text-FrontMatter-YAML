@@ -14,8 +14,8 @@ layout: frontpage
 title: My New Site
 END_YAML
 
-my $yaml = $tfm->get_frontmatter_text;
-is($yaml, $YAML_TEXT, "get_frontmatter_text returned correct text for $file");
+my $yaml = $tfm->frontmatter_text;
+is($yaml, $YAML_TEXT, "frontmatter_text returned correct text for $file");
 
 
 my $DATA_TEXT = <<'END_DATA';
@@ -26,8 +26,8 @@ Ha!
 ...
 END_DATA
 
-my $data = $tfm->get_data_text;
-is($data, $DATA_TEXT, "get_data_text returned correct text for $file");
+my $data = $tfm->data_text;
+is($data, $DATA_TEXT, "data_text returned correct text for $file");
 
 done_testing();
 1;

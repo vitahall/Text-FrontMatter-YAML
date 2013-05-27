@@ -16,8 +16,8 @@ Ha!
 ...
 END_DATA
 
-my $fh = $tfm->get_data_fh;
-ok(ref($fh) eq 'GLOB', 'get_data_fh returned a filehandle');
+my $fh = $tfm->data_fh;
+ok(ref($fh) eq 'GLOB', 'data_fh returned a filehandle');
 
 
 my $output;
@@ -27,8 +27,8 @@ while (defined(my $line = <$fh>)) {
 
 is($output, $DATA_TEXT, 'filehandle outputs correct data');
 
-my $fh2 = $tfm->get_data_fh;
-my $fh3 = $tfm->get_data_fh;
-isnt($fh2, $fh3, 'get_data_fh returns a new filehandle on each call');
+my $fh2 = $tfm->data_fh;
+my $fh3 = $tfm->data_fh;
+isnt($fh2, $fh3, 'data_fh returns a new filehandle on each call');
 
 done_testing();
