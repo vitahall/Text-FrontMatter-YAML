@@ -20,9 +20,10 @@ my $tfm = Text::FrontMatter::YAML->new(
     string => $DOC_TEXT,
 );
 
-# the returned YAML will be missing the '---' at the end
+# the returned YAML will be missing the '---' lines
 my $RETURNED_YAML = $YAML_TEXT;
 $RETURNED_YAML =~ s/---\n\Z//;
+$RETURNED_YAML =~ s/\A---\n//;
 
 my $yaml = $tfm->frontmatter_text;
 is($yaml, $RETURNED_YAML, "frontmatter_text returned correct text for string");

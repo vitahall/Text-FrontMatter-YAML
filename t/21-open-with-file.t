@@ -9,7 +9,6 @@ my $tfm = Text::FrontMatter::YAML->new(
 );
 
 my $YAML_TEXT = <<'END_YAML';
----
 layout: frontpage
 title: My New Site
 END_YAML

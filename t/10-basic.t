@@ -12,7 +12,6 @@ my $tfm = Text::FrontMatter::YAML->new(
 ok(ref($tfm), 'new returned an object');
 
 my $YAML_TEXT = <<'END_YAML';
----
 layout: frontpage
 title: My New Site
 END_YAML

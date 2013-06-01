@@ -9,7 +9,7 @@ my $tfm = Text::FrontMatter::YAML->new(
     fh => $fh,
 );
 
-my $YAML_TEXT = "---\n";
+my $YAML_TEXT = "";
 
 my $yaml = $tfm->frontmatter_text;
 is($yaml, $YAML_TEXT, 'empty frontmatter returned for file with no yaml');

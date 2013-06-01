@@ -10,7 +10,6 @@ my $tfm = Text::FrontMatter::YAML->new(
 );
 
 my $YAML_TEXT = <<'END_YAML';
----
 title: A document
 author: Aaron Hall
 organization: None

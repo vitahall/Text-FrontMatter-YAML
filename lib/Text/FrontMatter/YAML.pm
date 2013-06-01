@@ -74,17 +74,27 @@ have "front matter":
 It is not an error to open text files that have no front matter block,
 nor those that have no data block.
 
+Triple-dashed lines (C<---\n>) mark the beginning of the two sections.
+The first triple-dashed line marks the beginning of the front matter. The
+second such line marks the beginning of the data section. Thus the
+following is a valid document:
+
+    ---
+    ---
+
+That defines a document with defined but empty front matter and data
+sections. The triple-dashed lines are stripped when the front matter or
+data are returned as text.
+
 If the input has front matter, a triple-dashed line must be the first line
 of the file. If not, the file is considered to have no front matter; it's
 all data. frontmatter_text() and frontmatter_hashref() will return
 undef in this case.
 
-The triple-dashed line ending the block is taken as a separator. It is not
-returned in either the frontmatter or data. In files with a front matter
-block, the first line following the triple-dashed line begins the data
-section. If there I<is> no trailing triple-dashed line the file is
-considered to have no data section, and data_text() and data_fh()
-will return undef.
+In files with a front matter block, the first line following the next
+triple-dashed line begins the data section. If there I<is> no second
+triple-dashed line the file is considered to have no data section, and
+data_text() and data_fh() will return undef.
 
 =head1 METHODS
 
@@ -162,6 +172,8 @@ sub _init_from_fh {
             # set initial state
             if ($line =~ $yaml_marker_re) {
                 $state = 'in_yaml';
+                $yaml .= ''; # define frontmatter section
+                next LINE; # don't collect the leading '---'
             }
             else {
                 $state = 'in_data';
