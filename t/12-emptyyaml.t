@@ -1,21 +1,30 @@
+use strict;
+
 use Test::More;
 
 use Text::FrontMatter::YAML;
 
-my $file = 't/data/emptyyaml';
+##############################
 
-open my $fh, '<', $file or die "can't open $file";
-my $tfm = Text::FrontMatter::YAML->new(
-    fh => $fh,
-);
+my $INPUT_STRING = <<'END_INPUT';
+---
+---
+This is just some random text. Nothing to see here. Move along.
 
-my $YAML_TEXT = "";
+---
+Ha!
+...
+END_INPUT
+
+my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+
+##############################
 
 my $yaml = $tfm->frontmatter_text;
-is($yaml, $YAML_TEXT, 'empty frontmatter returned for file with no yaml');
+is($yaml, '', 'empty frontmatter returned for file with no yaml');
 
 
-my $DATA_TEXT = <<'END_DATA';
+my $expected_data = <<'END_DATA';
 This is just some random text. Nothing to see here. Move along.
 
 ---
@@ -24,7 +33,7 @@ Ha!
 END_DATA
 
 my $data = $tfm->data_text;
-is($data, $DATA_TEXT, 'data text returned for file with no yaml');
+is($data, $expected_data, 'data returned for file with no yaml');
 
 done_testing();
 1;

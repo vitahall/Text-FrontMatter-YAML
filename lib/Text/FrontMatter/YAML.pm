@@ -22,27 +22,21 @@ our $VERSION = '0.03';
 
     use Text::FrontMatter::YAML;
 
-    my $filepath = shift(@ARGV);
     my $tfm = Text::FrontMatter::YAML->new(
-        path => $filepath,
+        from_string => $text_with_frontmatter
     );
 
-    my $hashref   = $tfm->frontmatter_hashref();
-    my $mumble    = $hashref->{'mumble'};
+    my $hashref  = $tfm->frontmatter_hashref();
+    my $mumble   = $hashref->{'mumble'};
+    my $data     = $tfm->data_text();
+
+    # or also
 
     my $fh = $tfm->data_fh();
     while (defined(my $line = <$fh>)) {
         # do something with the file data
     }
 
-    # or also
-
-    my $tfm = Text::FrontMatter::YAML->new(
-        string => $text_with_frontmatter
-    );
-
-    my $yaml = $tfm->frontmatter_text();
-    my $data = $tfm->data_text();
 
 =head1 DESCRIPTION
 
@@ -100,28 +94,8 @@ data_text() and data_fh() will return undef.
 
 =head2 new
 
-new() created a new Text::FrontMatter::YAML object. You can create an object
-from an existing filehandle, a string, or a file. It takes a hash, in which
-one (and only one) of the following arguments must be passed:
-
-=over 4
-
-=item I<fh>
-
-An open filehandle, ready for reading. The filehandle will be read to the
-end but not closed. The filehandle is not used for any other purposes, so
-it's all right to close it after new() returns.
-
-=item I<path>
-
-The path to the file you want to open. If the file cannot be opened,
-Text::FrontMatter::YAML will croak().
-
-=item I<string>
-
-Um, a string. :)
-
-=back
+new() creates a new Text::FrontMatter::YAML object. It takes one parameter,
+C<from_string>, which contains the input data in a scalar.
 
 =cut
 
@@ -133,26 +107,10 @@ sub new {
     my %args = @_;
 
     # disallow passing incompatible arguments
-    my $initargs;
-    $initargs++ if $args{'fh'};
-    $initargs++ if $args{'string'};
-    $initargs++ if $args{'path'};
-    croak "must give one (and only one) of 'fh', 'string', or 'path'"
-      if $initargs != 1;
+    croak "must pass from_string to new()" unless $args{'from_string'};
 
     # initialize from whatever we've got
-    if ($args{'fh'}) {
-        $self->_init_from_fh($args{'fh'});
-    }
-    elsif ($args{'string'}) {
-        $self->_init_from_string($args{'string'});
-    }
-    elsif ($args{'path'}) {
-        $self->_init_from_file($args{'path'}, $args{'mode'});
-    }
-    else {
-        die "internal error: no init argument";
-    }
+    $self->_init_from_string($args{'from_string'});
 
     return $self;
 }
@@ -212,19 +170,6 @@ sub _init_from_string {
 
     open my $fh, '<:encoding(UTF-8)', \$string
       or die "internal error: cannot open filehandle on string, $!";
-
-    $self->_init_from_fh($fh);
-
-    close $fh;
-}
-
-
-sub _init_from_file {
-    my $self = shift;
-    my $path = shift;
-
-    open my $fh, '<:encoding(UTF-8)', $path
-      or croak "cannot open $path, $!";
 
     $self->_init_from_fh($fh);
 
@@ -322,13 +267,6 @@ sub data_text {
 
 Errors in the YAML will only be detected upon calling frontmatter_hashref(),
 because that's the only time that YAML::Tiny is called to parse the YAML.
-
-=item *
-
-Text encoding is currently ignored. YAML::Tiny will attempt to decode
-the YAML into UTF-8 if the L<utf8> module is available. In the future
-this module will attempt to handle various encodings of the data section,
-but more research is needed. Suggestions welcome.
 
 =back
 

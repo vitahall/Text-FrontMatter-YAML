@@ -1,13 +1,20 @@
+use strict;
+
 use Test::More;
 
 use Text::FrontMatter::YAML;
 
-my $file = 't/data/emptyboth';
+##############################
 
-open my $fh, '<', $file or die "can't open $file";
-my $tfm = Text::FrontMatter::YAML->new(
-    fh => $fh,
-);
+my $INPUT_STRING = <<'END_INPUT';
+---
+---
+END_INPUT
+
+my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+
+##############################
+
 
 my $yaml = $tfm->frontmatter_text;
 is($yaml, '', 'empty yaml returned for file with both sections empty');

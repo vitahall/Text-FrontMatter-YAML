@@ -16,27 +16,20 @@ SYNOPSIS
 
     use Text::FrontMatter::YAML;
 
-    my $filepath = shift(@ARGV);
     my $tfm = Text::FrontMatter::YAML->new(
-        path => $filepath,
+        from_string => $text_with_frontmatter
     );
 
-    my $hashref = $tfm->get_frontmatter_hash();
-    my $mumble  = $hashref->{'mumble'};
+    my $hashref  = $tfm->frontmatter_hashref();
+    my $mumble   = $hashref->{'mumble'};
+    my $data     = $tfm->data_text();
 
-    my $fh = $tfm->get_data_fh();
+    # or also
+
+    my $fh = $tfm->data_fh();
     while (defined(my $line = <$fh>)) {
         # do something with the file data
     }
-
-    # or also...
-
-    my $tfm = Text::FrontMatter::YAML->new(
-        string => $text_with_frontmatter
-    );
-
-    my $yaml = $tfm->get_frontmatter_text();
-    my $data = $tfm->get_data_text();
 
 
 INSTALLATION
@@ -51,13 +44,11 @@ To install this module, run the following commands:
 
 FUTURE DIRECTIONS
 
-This release only supports reading the data. I haven't yet needed
-read/write ability, so I haven't written it. If you would find it
-helpful, please let me know (or send a patch).
-
-Text encoding is not currently considered. I hope to handle the division
-between YAML front matter and document text sanely and correctly in
-the future. Suggestions welcome.
+This release only supports splitting a document string into the front
+matter and data sections. I haven't yet needed to go the other way so I
+haven't written it the code to compose a full document string. It will
+probably come shortly, but if you would find it helpful, a patch will be
+welcome. :)
 
 
 SUPPORT AND DOCUMENTATION

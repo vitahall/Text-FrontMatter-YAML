@@ -17,7 +17,7 @@ END_DATA
 my $DOC_TEXT = $YAML_TEXT . $DATA_TEXT;
 
 my $tfm = Text::FrontMatter::YAML->new(
-    string => $DOC_TEXT,
+    from_string => $DOC_TEXT,
 );
 
 # the returned YAML will be missing the '---' lines

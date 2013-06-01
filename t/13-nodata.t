@@ -1,28 +1,34 @@
+use strict;
+
 use Test::More;
 
 use Text::FrontMatter::YAML;
 
-my $file = 't/data/nodata';
+##############################
 
-open my $fh, '<', $file or die "can't open $file";
-my $tfm = Text::FrontMatter::YAML->new(
-    fh => $fh,
-);
+my $INPUT_STRING = <<'END_INPUT';
+---
+title: A document
+author: Aaron Hall
+organization: None
+END_INPUT
 
-my $YAML_TEXT = <<'END_YAML';
+my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+
+##############################
+
+my $expected_yaml = <<'END_YAML';
 title: A document
 author: Aaron Hall
 organization: None
 END_YAML
 
 my $yaml = $tfm->frontmatter_text;
-is($yaml, $YAML_TEXT, 'yaml returned for file with no data section');
+is($yaml, $expected_yaml, 'yaml returned for file with no data section');
 
-
-my $DATA_TEXT = undef;
 
 my $data = $tfm->data_text;
-is($data, $DATA_TEXT, 'undef data returned for file with no data section');
+is($data, undef, 'undef data returned for file with no data section');
 
 done_testing();
 1;

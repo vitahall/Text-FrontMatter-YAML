@@ -2,11 +2,19 @@ use Test::More;
 
 use Text::FrontMatter::YAML;
 
-my $file = 't/data/basic';
+my $INPUT_STRING = <<'END_INPUT';
+---
+layout: frontpage
+title: My New Site
+---
+This is just some random text. Nothing to see here. Move along.
 
-my $tfm = Text::FrontMatter::YAML->new(
-    path => $file,
-);
+---
+Ha!
+...
+END_INPUT
+
+my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
 
 my $expected_yaml = {
     layout => 'frontpage',

@@ -1,14 +1,27 @@
+use strict;
 use Test::More;
 
 use Text::FrontMatter::YAML;
 
-my $file = 't/data/basic';
+#################################
 
-my $tfm = Text::FrontMatter::YAML->new(
-    path => $file,
-);
+my $INPUT_STRING = <<'END_INPUT';
+---
+layout: frontpage
+title: My New Site
+---
+This is just some random text. Nothing to see here. Move along.
 
-my $DATA_TEXT = <<'END_DATA';
+---
+Ha!
+...
+END_INPUT
+
+my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+
+#################################
+
+my $expected_data = <<'END_DATA';
 This is just some random text. Nothing to see here. Move along.
 
 ---
@@ -25,7 +38,7 @@ while (defined(my $line = <$fh>)) {
     $output .= $line;
 }
 
-is($output, $DATA_TEXT, 'filehandle outputs correct data');
+is($output, $expected_data, 'filehandle outputs correct data');
 
 my $fh2 = $tfm->data_fh;
 my $fh3 = $tfm->data_fh;
@@ -35,9 +48,12 @@ isnt($fh2, $fh3, 'data_fh returns a new filehandle on each call');
 # test that a generated filehandle does the right thing when there's
 # a defined-but-empty data section
 
-my $tfm = Text::FrontMatter::YAML->new(
-    path => 't/data/emptydata'
-);
+$INPUT_STRING = <<'END_INPUT';
+---
+---
+END_INPUT
+
+$tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
 my $empty_fh = $tfm->data_fh;
 
 $output = '';
