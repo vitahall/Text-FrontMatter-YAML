@@ -1,5 +1,15 @@
 Revision history for Text-FrontMatter-YAML
 
+0.04    2013-06-02 (internal-only)
+  - Removed ability to initialize from a file or a filehandle;
+    this makes the code simpler, and File::Slurp, Path::Class, and the
+    like make that feature more or less superfluous.
+  - The 'string' parameter to new() is now 'from_string'.
+  - The '---' marker lines are no longer returned by 'frontmatter_text'
+  - A better distinction is made between *empty* sections and
+    *undefined* sections. (See perldoc.)
+  - Sped up collection of data section.
+
 0.03    2013-05-27 (internal-only)
   - Remove get_ from APIs
   - Assume input is in UTF-8 and set encoding on open()
