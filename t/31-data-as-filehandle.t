@@ -17,7 +17,7 @@ Ha!
 ...
 END_INPUT
 
-my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+my $tfm = Text::FrontMatter::YAML->new( document_string => $INPUT_STRING );
 
 #################################
 
@@ -53,7 +53,7 @@ $INPUT_STRING = <<'END_INPUT';
 ---
 END_INPUT
 
-$tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+$tfm = Text::FrontMatter::YAML->new( document_string => $INPUT_STRING );
 my $empty_fh = $tfm->data_fh;
 
 $output = '';

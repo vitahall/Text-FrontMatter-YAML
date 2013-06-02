@@ -16,7 +16,7 @@ Ha!
 ...
 END_INPUT
 
-my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+my $tfm = Text::FrontMatter::YAML->new( document_string => $INPUT_STRING );
 
 ##############################
 

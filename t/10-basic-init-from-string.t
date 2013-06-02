@@ -18,7 +18,7 @@ Ha!
 ...
 END_INPUT
 
-my $tfm = Text::FrontMatter::YAML->new( from_string => $INPUT_STRING );
+my $tfm = Text::FrontMatter::YAML->new( document_string => $INPUT_STRING );
 
 ##############################
 
@@ -45,6 +45,9 @@ END_DATA
 my $data = $tfm->data_text;
 ok($data, 'data_text returned text');
 is($data, $expected_data, "data_text returned correct text for filehandle");
+
+my $full_document = $tfm->document_string;
+is($full_document, $INPUT_STRING, "document string round-trips correctly");
 
 done_testing();
 1;
