@@ -122,45 +122,33 @@ sub _init_from_fh {
     my $fh   = shift;
 
     my $yaml_marker_re = qr/^---\s*$/;
-    my $state;
-    my $yaml;
-    my $data;
-    LINE: while (defined(my $line = <$fh>)) {
-        if (! $state) {
-            # set initial state
+
+    LINE: while (my $line = <$fh>) {
+        if ($. == 1) {
+            # first line: determine if we've got YAML or not
             if ($line =~ $yaml_marker_re) {
-                $state = 'in_yaml';
-                $yaml .= ''; # define frontmatter section
-                next LINE; # don't collect the leading '---'
+                # found opening marker, read YAML front matter
+                $self->{'yaml'} = '';
+                next LINE;
             }
             else {
-                $state = 'in_data';
+                # the whole thing's data, slurp it and go
+                local $/;
+                $self->{'data'} = $line . <$fh>;
+                last LINE;
             }
         }
-        elsif ($state eq 'in_yaml') {
-            # if state already defined, just look for trailing '---'
-            # Maybe also allow '...'?
+        else {
+            # subsequent lines
             if ($line =~ $yaml_marker_re) {
-                $state = 'in_data';
-                $data .= ''; # define data section
-                next LINE;  # don't collect the trailing '---'
+                # found closing marker, so slurp the rest of the data
+                local $/;
+                $self->{'data'} = '' . <$fh>; # '' so we always define data here
+                last LINE;
             }
-        }
-        # no check is performed for $state eq 'in_data'. Once you're in
-        # the data section, you stay there. (It might be useful to change
-        # this later to deal with document streams.)
-
-        # collect the line
-        if ($state eq 'in_yaml') {
-            $yaml .= $line;
-        }
-        elsif ($state eq 'in_data') {
-            $data .= $line;
+            $self->{'yaml'} .= $line;
         }
     }
-
-    $self->{'yaml'} = $yaml;
-    $self->{'data'} = $data;
 }
 
 
