@@ -14,15 +14,18 @@ Access is read-only.
 
 SYNOPSIS
 
+    use File::Slurp;
     use Text::FrontMatter::YAML;
 
+    # READING
+    my $text_with_frontmatter = read_file("filename.md");
     my $tfm = Text::FrontMatter::YAML->new(
-        from_string => $text_with_frontmatter
+        document_string => $text_with_frontmatter
     );
 
-    my $hashref  = $tfm->frontmatter_hashref();
+    my $hashref  = $tfm->frontmatter_hashref;
     my $mumble   = $hashref->{'mumble'};
-    my $data     = $tfm->data_text();
+    my $data     = $tfm->data_text;
 
     # or also
 
@@ -30,6 +33,18 @@ SYNOPSIS
     while (defined(my $line = <$fh>)) {
         # do something with the file data
     }
+
+    # WRITING
+    my $tfm = Text::FrontMatter::YAML->new(
+        frontmatter_hashref => {
+            title => 'The first sentence of the "Gettysburg Address"',
+            author => 'Abraham Lincoln',
+            date => 18631119
+        },
+        data_text => "Four score and seven years ago...",
+    );
+
+    write_file("gettysburg.md", $tfm->document_string);
 
 
 INSTALLATION
@@ -44,11 +59,9 @@ To install this module, run the following commands:
 
 FUTURE DIRECTIONS
 
-This release only supports splitting a document string into the front
-matter and data sections. I haven't yet needed to go the other way so I
-haven't written it the code to compose a full document string. It will
-probably come shortly, but if you would find it helpful, a patch will be
-welcome. :)
+Text::FrontMatter::YAML uses YAML::Tiny. Perhaps it would be useful to
+support more than one YAML module. Perhaps that would be more trouble
+that it's worth. Thoughts?
 
 
 SUPPORT AND DOCUMENTATION

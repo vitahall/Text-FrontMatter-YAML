@@ -1,5 +1,11 @@
 Revision history for Text-FrontMatter-YAML
 
+0.05    2013-06-02
+  - You can now pass in a hashref and text data, and pull a complete
+    document with a front matter section back out.
+  - 'from_string' has changed to 'document_string' to match the
+    new getter name.
+
 0.04    2013-06-02 (internal-only)
   - Removed ability to initialize from a file or a filehandle;
     this makes the code simpler, and File::Slurp, Path::Class, and the
