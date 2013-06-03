@@ -1,5 +1,8 @@
 Revision history for Text-FrontMatter-YAML
 
+0.06    2013-06-02
+  - Actually set the version number. (What a way to start!)
+
 0.05    2013-06-02
   - You can now pass in a hashref and text data, and pull a complete
     document with a front matter section back out.

@@ -14,8 +14,7 @@ use YAML::Tiny qw/Load/;
 Text::FrontMatter::YAML - read the "YAML front matter" format
 
 =cut
-
-our $VERSION = '0.04';
+our $VERSION = '0.06';
 
 
 =head1 SYNOPSIS
