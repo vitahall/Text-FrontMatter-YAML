@@ -226,7 +226,7 @@ sub _init_from_string {
 
 =head2 frontmatter_hashref
 
-frontmatter_hashref() loads the YAML in the front matter using YAML::Tiny
+frontmatter_hashref() loads the YAML in the front matter using L<YAML::Tiny>
 and returns a reference to the resulting hash.
 
 If there is no front matter block, it returns undef.
@@ -321,27 +321,6 @@ sub document_string {
     return $self->{'document'};
 }
 
-
-=head1 BUGS & CAVEATS
-
-=over 4
-
-=item *
-
-If you create an object from a string with C<document_string>, and then
-pull the string back out with document_string(), don't rely on hash keys
-in the YAML to be ordered the same way.
-
-=item *
-
-Errors in the YAML will only be detected upon calling frontmatter_hashref(),
-because that's the only time that YAML::Tiny is called to parse the YAML.
-
-=back
-
-Please report bugs to me at C<ahall@vitaphone.net>. Please include
-C<Text::FrontMatter::YAML> in the subject line of the e-mail. Thanks!
-
 =head1 DIAGNOSTICS
 
 =over 4
@@ -358,29 +337,40 @@ Once you create the object, you can't change it.
 =item internal error: ...
 
 Something went wrong that wasn't supposed to, and points to a bug. Please
-report it to me at C<< ahall@vitahall.org >>. Thanks!
+report it to me at C<bug-text-frontmatter-yaml@rt.cpan.org>. Thanks!
 
 =back
 
-=head1 DEPENDENCIES
 
-YAML::Tiny (available from CPAN) is used to process the YAML front matter
-when frontmatter_hashref() is called.
+=head1 BUGS & CAVEATS
 
-=head1 SUPPORT
+=over 4
 
-You can find documentation for this module with the perldoc command.
+=item *
 
-    perldoc Text::FrontMatter::YAML
+If you create an object from a string with C<document_string>, and then
+pull the string back out with document_string(), don't rely on hash keys
+in the YAML to be ordered the same way.
 
-Send questions, feature requests, and bug reports to me at
-C<ahall@vitaphone.net>. Please include C<Text::FrontMatter::YAML> in the
-subject line of the e-mail. Thanks!
+=item *
+
+Errors in the YAML will only be detected upon calling frontmatter_hashref(),
+because that's the only time that L<YAML::Tiny> is called to parse the YAML.
+
+=back
+
+Please report bugs to me at C<bug-text-frontmatter-yaml@rt.cpan.org> or
+use the web interface at:
+
+L<https://rt.cpan.org/Public/Bug/Report.html?Queue=Text-FrontMatter-YAML>.
+
+I will be notified, and then you'll automatically be notified of progress
+on your bug as I make changes.
+
 
 =head1 SEE ALSO
 
 Jekyll - L<https://github.com/mojombo/jekyll/wiki/yaml-front-matter>
-
 
 L<YAML>
 
@@ -388,7 +378,7 @@ L<YAML::Tiny>
 
 =head1 AUTHOR
 
-Aaron Hall, C<< ahall@vitaphone.net >>
+Aaron Hall, C<vitahall@cpan.org>
 
 =head1 LICENSE AND COPYRIGHT
 
