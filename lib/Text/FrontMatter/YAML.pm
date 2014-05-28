@@ -3,7 +3,7 @@ package Text::FrontMatter::YAML;
 use warnings;
 use strict;
 
-use 5.10.0;
+use 5.10.1;
 
 use Data::Dumper;
 use Carp;
@@ -395,7 +395,7 @@ Aaron Hall, C<< ahall@vitaphone.net >>
 Copyright 2013 Aaron Hall.
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl 5.10.0.
+it under the same terms as Perl 5.10.1.
 
 See L<http://dev.perl.org/licenses/> for more information.
 

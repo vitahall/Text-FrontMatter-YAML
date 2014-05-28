@@ -7,6 +7,7 @@ WriteMakefile(
     AUTHOR              => 'Aaron Hall <ahall@vitaphone.net>',
     VERSION_FROM        => 'lib/Text/FrontMatter/YAML.pm',
     ABSTRACT_FROM       => 'lib/Text/FrontMatter/YAML.pm',
+    MIN_PERL_VERSION    => '5.10.1',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
       ? ('LICENSE'=> 'perl')
       : ()),
