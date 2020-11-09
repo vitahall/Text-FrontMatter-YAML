@@ -138,19 +138,19 @@ sub new {
 
     # disallow passing incompatible arguments
     unless (
-        ($args{'document_string'})
+        (exists $args{'document_string'})
           xor
-        ($args{'frontmatter_hashref'} or $args{'data_text'})
+        (exists $args{'frontmatter_hashref'} || exists $args{'data_text'})
     ) {
         croak "you must pass either 'document_string', "
             . "or 'frontmatter_hashref' and/or 'data_text'";
     }
 
     # initialize from whatever we've got
-    if ($args{'document_string'}) {
+    if (exists $args{'document_string'}) {
         $self->_init_from_string($args{'document_string'});
     }
-    elsif ($args{'frontmatter_hashref'} or $args{'data_text'}) {
+    elsif (exists $args{'frontmatter_hashref'} or exists $args{'data_text'}) {
         $self->_init_from_sections($args{'frontmatter_hashref'}, $args{'data_text'});
     }
     else {
