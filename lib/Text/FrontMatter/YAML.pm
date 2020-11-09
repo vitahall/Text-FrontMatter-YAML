@@ -185,9 +185,11 @@ sub _init_from_sections {
 sub _init_from_fh {
     my $self = shift;
     my $fh   = shift;
+    croak "internal error: _init_from_fh() didn't get a filehandle" unless $fh;
 
     my $yaml_marker_re = qr/^---\s*$/;
 
+    no warnings 'uninitialized';
     LINE: while (my $line = <$fh>) {
         if ($. == 1) {
             # first line: determine if we've got YAML or not
@@ -207,7 +209,6 @@ sub _init_from_fh {
             # subsequent lines
             if ($line =~ $yaml_marker_re) {
                 # found closing marker, so slurp the rest of the data
-                no warnings 'uninitialized'; # there might be no more data
                 local $/;
                 $self->{'data'} = '' . <$fh>; # '' so we always define data here
                 last LINE;
