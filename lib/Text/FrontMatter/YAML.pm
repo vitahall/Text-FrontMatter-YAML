@@ -15,7 +15,7 @@ use YAML::Tiny qw/Load/;
 Text::FrontMatter::YAML - read the "YAML front matter" format
 
 =cut
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 
 =head1 SYNOPSIS
@@ -397,7 +397,7 @@ Aaron Hall, C<vitahall@cpan.org>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013-2019 Aaron Hall.
+Copyright 2013-2021 Aaron Hall.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.10.1.
