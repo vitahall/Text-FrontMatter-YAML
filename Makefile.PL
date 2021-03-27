@@ -19,7 +19,7 @@ my %MakefileOptions = (
     },
     BUILD_REQUIRES => {
         'Test::More'    => '0.88',
-        'Encode'        => 0,
+        'Test::Fatal'   => 0,
     },
 
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
