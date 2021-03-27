@@ -142,8 +142,8 @@ sub new {
           xor
         (exists $args{'frontmatter_hashref'} || exists $args{'data_text'})
     ) {
-        croak "you must pass either 'document_string', "
-            . "or 'frontmatter_hashref' and/or 'data_text'";
+        croak "cannot pass 'document_string' with either "
+            . "'frontmatter_hashref' or 'data_text'";
     }
 
     # initialize from whatever we've got
@@ -343,7 +343,7 @@ sub document_string {
 =item cannot pass 'document_string' with either 'frontmatter_hashref' or 'data_text'
 
 When calling new(), you can't both pass in a complete document string I<and>
-the individual hashref and data sections.
+the individual hashref and data sections. Do one or the other.
 
 =item you can't call <method> as a setter
 
