@@ -17,7 +17,7 @@ my %MakefileOptions = (
         'Encode'        => 0,
         'YAML::Tiny'    => 0,
     },
-    BUILD_REQUIRES => {
+    TEST_REQUIRES => {
         'Test::More'    => '0.88',
         'Test::Fatal'   => 0,
     },
