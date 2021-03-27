@@ -136,12 +136,23 @@ sub new {
 
     my %args = @_;
 
+    # make sure we get something to init with
+    unless (
+        exists $args{'document_string'}
+        || exists $args{'frontmatter_hashref'}
+        || exists $args{'data_text'}
+    )
+    {
+        croak "must pass 'document_string', 'data_text', or 'frontmatter_hashref'";
+    }
+
     # disallow passing incompatible arguments
     unless (
         (exists $args{'document_string'})
           xor
         (exists $args{'frontmatter_hashref'} || exists $args{'data_text'})
-    ) {
+    )
+    {
         croak "cannot pass 'document_string' with either "
             . "'frontmatter_hashref' or 'data_text'";
     }
@@ -339,6 +350,11 @@ sub document_string {
 =head1 DIAGNOSTICS
 
 =over 4
+
+=item must pass 'document_string', 'data_text', or 'frontmatter_hashref'
+
+When calling new(), you have to pass in something to initialize the object.
+You can't create the object and then set the contents.
 
 =item cannot pass 'document_string' with either 'frontmatter_hashref' or 'data_text'
 

@@ -50,16 +50,11 @@ like(
     'new: croaks with document_string + frontmatter_hashref'
 );
 
-TODO: {
-    local $TODO = 'need to trap this case specifically';
-
 like(
     exception { tfmnew() },
     qr/must pass 'document_string', 'data_text', or 'frontmatter_hashref'/,
     'new: croaks with no parameters',
 );
-
-};
 
 
 my $TFM = tfmnew( document_string => $DOC_STRING );
